@@ -3,17 +3,17 @@
     <h2>{{ title }}</h2>
     <select>
       <option value="">Select a person</option>
-      <option v-for="person in people" :key="person">{{ person }}</option>
+      <option v-for="person in peopleList" :key="person">{{ person }}</option>
     </select>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import people from '../assets/people.json';
 
 const props = defineProps({
-  title: String,
+  title: String
 });
 
 const peopleList = ref(people.people);
@@ -24,12 +24,9 @@ const peopleList = ref(people.people);
   margin-bottom: 20px;
 }
 
-h2 {
-  margin-bottom: 10px;
-}
-
 select {
   width: 100%;
   padding: 5px;
+  margin-top: 5px;
 }
 </style>

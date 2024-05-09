@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import Sidebar from './components/Sidebar.vue';
-import Combobox from './components/Combobox.vue';
+import Sidebar from './components/SideBar.vue';
+import Combobox from './components/ComboBox.vue';
 </script>
 
 <style>
