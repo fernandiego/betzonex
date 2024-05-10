@@ -1,22 +1,25 @@
 <template>
-  <div class="combobox">
-    <h2>{{ title }}</h2>
-    <select>
-      <option value="">Select a person</option>
-      <option v-for="person in peopleList" :key="person">{{ person }}</option>
-    </select>
-  </div>
+  <select v-model = "atleta" @change="selectName">
+    <option :value="'Escolha um atleta'">Escolha um atleta</option>
+    <option v-for="person in people" :key="person.id" :value="person.name">{{ person.name }}</option>
+  </select>
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue';
-import people from '../assets/people.json';
+import { ref, defineProps, defineEmits } from 'vue';
+import peopleData from '../assets/people.json';
 
 const props = defineProps({
   title: String
 });
+const atleta = ref("Escolha um atleta")
+const emit = defineEmits(['selectName']);
 
-const peopleList = ref(people.people);
+const people = ref(peopleData.people);
+
+function selectName(name) {
+  emit('selectName', atleta.value);
+}
 </script>
 
 <style scoped>

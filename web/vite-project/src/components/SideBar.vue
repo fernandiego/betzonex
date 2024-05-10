@@ -9,9 +9,10 @@
 import SideMenu from './SideMenu.vue';
 
 const menuItems = [
-  { id: 1, label: 'Home', url: '#' },
-  { id: 2, label: 'Home 2', url: '#' },
-  { id: 3, label: 'Home 2', url: '#' }
+  { id: 1, label: 'Escolhas', url: '#' },
+  { id: 2, label: 'Ranking', url: '#' },
+  { id: 3, label: 'Resultados', url: '#' },
+  { id: 4, label: 'Programa de provas', url: '#' }
   // Add more menu items as needed
 ];
 </script>
