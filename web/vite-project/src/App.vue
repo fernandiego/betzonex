@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app>
-      <SideBar/>
-    </v-navigation-drawer>
+    <SideBar />
     <v-main>
       <v-container>
         <Accordion title="400m estilo livre (M)">
@@ -55,15 +53,16 @@
 
 <script setup>
 import Accordion from "./components/Accordion.vue";
-import SideBar from "./components/SideBar.vue";
 import Athlete from "./components/Athlete.vue";
 import {useStore} from 'vuex';
+import SideBar from "./components/SideBar.vue";
 
 const store = useStore();
 
 const printAllSelections = () => {
   console.log('All selections:', store.getters.getSelections);
 };
+
 </script>
 
 <style scoped>
