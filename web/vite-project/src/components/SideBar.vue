@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>My Application</v-toolbar-title>
+      <v-toolbar-title>Bolão Olimpíadas De Paris 2024</v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app>
