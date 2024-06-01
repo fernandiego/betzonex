@@ -1,0 +1,64 @@
+{
+  "athletes": [
+    {
+      "name": "Kal Aragão",
+      "nationality": "USA",
+      "age": 23,
+      "times": "03:43.12"
+    },
+    {
+      "name": "Eduardo Tigre",
+      "nationality": "Brazil",
+      "age": 20,
+      "times": "03:45.33"
+    },
+    {
+      "name": "Alex Johnson",
+      "nationality": "Australia",
+      "age": 22,
+      "times": "03:42.67"
+    },
+    {
+      "name": "André Canadá",
+      "nationality": "Canada",
+      "age": 29,
+      "times": "03:44.12"
+    },
+    {
+      "name": "Li Wei",
+      "nationality": "China",
+      "age": 21,
+      "times": "03:46.54"
+    },
+    {
+      "name": "Yuki Tanaka",
+      "nationality": "Japan",
+      "age": 26,
+      "times": "03:45.10"
+    },
+    {
+      "name": "Carlos Gomez",
+      "nationality": "Mexico",
+      "age": 24,
+      "times": "03:47.25"
+    },
+    {
+      "name": "Andrei Petrov",
+      "nationality": "Russia",
+      "age": 27,
+      "times": "03:43.89"
+    },
+    {
+      "name": "David Park",
+      "nationality": "South Korea",
+      "age": 25,
+      "times": "03:44.78"
+    },
+    {
+      "name": "Franco Rossi",
+      "nationality": "Italy",
+      "age": 28,
+      "times": "03:42.45"
+    }
+  ]
+}

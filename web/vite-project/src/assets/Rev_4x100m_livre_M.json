@@ -1,0 +1,52 @@
+{
+  "athletes": [
+    {
+      "name": "UNITED STATES OF AMERICA",
+      "nationality": "USA",
+      "age": null,
+      "times": "03:08.24"
+    },
+    {
+      "name": "Australia",
+      "nationality": "AUS",
+      "age": null,
+      "times": "03:09.38"
+    },
+    {
+      "name": "Canada",
+      "nationality": "CAN",
+      "age": null,
+      "times": "03:11.34"
+    },
+    {
+      "name": "China",
+      "nationality": "CHN",
+      "age": null,
+      "times": "03:10.76"
+    },
+    {
+      "name": "Japan",
+      "nationality": "JPN",
+      "age": null,
+      "times": "03:12.45"
+    },
+    {
+      "name": "Brazil",
+      "nationality": "BRA",
+      "age": null,
+      "times": "03:10.98"
+    },
+    {
+      "name": "Netherlands",
+      "nationality": "NED",
+      "age": null,
+      "times": "03:09.67"
+    },
+    {
+      "name": "Sweden",
+      "nationality": "SWE",
+      "age": null,
+      "times": "03:10.54"
+    }
+  ]
+}
