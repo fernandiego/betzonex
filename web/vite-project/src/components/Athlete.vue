@@ -2,21 +2,21 @@
   <div>
     <div v-if="selectedAthletes.length">
       <v-btn
-        v-for="(athlete, index) in selectedAthletes"
-        :key="athlete"
-        :class="getButtonClass(athlete)"
-        @click.stop="removeSelection(athlete)"
-        block
+          v-for="(athlete, index) in selectedAthletes"
+          :key="athlete"
+          :class="getButtonClass(athlete)"
+          @click.stop="removeSelection(athlete)"
+          block
       >
         {{ athlete }}
       </v-btn>
     </div>
     <v-btn
-      v-for="(athlete, index) in athletes"
-      :key="index"
-      :class="{ selected: selectedAthletes.includes(athlete.name) }"
-      @click="toggleSelection(athlete.name)"
-      block
+        v-for="(athlete, index) in athletes"
+        :key="index"
+        :class="{ selected: selectedAthletes.includes(athlete.name) }"
+        @click="toggleSelection(athlete.name)"
+        block
     >
       {{ athlete.name }} - {{ athlete.nationality }} {{ athlete.times }}
     </v-btn>
@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { useStore } from 'vuex';
+import {ref, onMounted, watch} from 'vue';
+import {useSelectionStore} from '../store/selectionStore.js'
 
 const props = defineProps({
   jsonFilePath: {
@@ -38,7 +38,7 @@ const props = defineProps({
   },
 });
 
-const store = useStore();
+const storePinia = useSelectionStore()
 
 const athletes = ref([]);
 const selectedAthletes = ref([]);
@@ -81,16 +81,15 @@ const printSelections = () => {
 
 // Watch for changes in selectedAthletes and update the store
 watch(selectedAthletes, (newSelection) => {
-  store.dispatch('updateSelection', {
+  storePinia.updateSelection({
     event: props.eventName,
     athletes: newSelection,
   });
-});
+}, {deep: true});
 
-onMounted(() => {
-  fetchAthletes();
-  // Load the existing selections from the store
-  selectedAthletes.value = store.getters.getSelectionsByEvent(props.eventName);
+onMounted(async () => {
+  await fetchAthletes();
+  selectedAthletes.value = storePinia.getSelectionsByEvent(props.eventName);
 });
 </script>
 
@@ -100,16 +99,19 @@ onMounted(() => {
   color: black;
   position: relative;
 }
+
 .silver {
   background-color: silver;
   color: black;
   position: relative;
 }
+
 .bronze {
   background-color: #cd7f32;
   color: black;
   position: relative;
 }
+
 .selected {
   background-color: #c5edc5;
 }

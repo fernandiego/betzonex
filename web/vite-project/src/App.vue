@@ -45,7 +45,7 @@
         <Accordion title="1500m estilo livre (M)"/>
         <Accordion title="Revezamento 4x100m medley (M)"/>
         <Accordion title="Revezamento 4x100m medley (F)"/>
-        <v-btn @click="printAllSelections">Print All Selections</v-btn>
+        <v-btn @click="printAllSelectionsFinal">Print All Selections</v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -54,13 +54,14 @@
 <script setup>
 import Accordion from "./components/Accordion.vue";
 import Athlete from "./components/Athlete.vue";
-import {useStore} from 'vuex';
 import SideBar from "./components/SideBar.vue";
+import {useSelectionStore} from "./store/selectionStore.js";
 
-const store = useStore();
+const storePinia = useSelectionStore();
 
-const printAllSelections = () => {
-  console.log('All selections:', store.getters.getSelections);
+
+const printAllSelectionsFinal = () => {
+  console.log('All selections:', storePinia.getSelections);
 };
 
 </script>
