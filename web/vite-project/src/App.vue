@@ -46,6 +46,7 @@
         <Accordion title="Revezamento 4x100m medley (M)"/>
         <Accordion title="Revezamento 4x100m medley (F)"/>
         <v-btn @click="printAllSelectionsFinal">Print All Selections</v-btn>
+        <v-btn @click="testPontos">testePontos</v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -62,6 +63,39 @@ const storePinia = useSelectionStore();
 
 const printAllSelectionsFinal = () => {
   console.log('All selections:', storePinia.getSelections);
+};
+
+const testPontos = async () => {
+  try {
+    const response = await fetch(new URL(`/public/assets/winners.json`, import.meta.url));
+    const winners = await response.json();
+
+    let points = 0;
+    const selections = storePinia.getSelections;
+
+    Object.keys(selections).forEach(event => {
+      const eventWinners = winners[event];
+      const userSelections = selections[event];
+
+      console.log(`Checking event: ${event}`);
+      if (!eventWinners) {
+        console.error(`No winners found for event: ${event}`);
+        return;
+      }
+
+      if (userSelections[0] === eventWinners.gold) points += 10;
+      if (userSelections[1] === eventWinners.silver) points += 7;
+      if (userSelections[2] === eventWinners.bronze) points += 5;
+    });
+
+    if (points > 0) {
+      console.log(`Points scored: ${points}`);
+    } else {
+      console.log('No points scored');
+    }
+  } catch (error) {
+    console.error('Failed to fetch winners:', error);
+  }
 };
 
 </script>

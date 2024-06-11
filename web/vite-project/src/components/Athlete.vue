@@ -45,7 +45,7 @@ const selectedAthletes = ref([]);
 
 const fetchAthletes = async () => {
   try {
-    const response = await fetch(new URL(`../assets/${props.jsonFilePath}`, import.meta.url));
+    const response = await fetch(new URL(`/public/assets/provas/${props.jsonFilePath}`, import.meta.url));
     const data = await response.json();
     athletes.value = data.athletes;
   } catch (error) {
@@ -60,11 +60,13 @@ const toggleSelection = (name) => {
     selectedAthletes.value.push(name);
   }
   printSelections();
+  storePinia.updateSelection({ event: props.eventName, athletes: selectedAthletes.value });
 };
 
 const removeSelection = (name) => {
   selectedAthletes.value = selectedAthletes.value.filter((athlete) => athlete !== name);
   printSelections();
+  storePinia.updateSelection({ event: props.eventName, athletes: selectedAthletes.value });
 };
 
 const getButtonClass = (name) => {
