@@ -18,11 +18,10 @@ import SideMenu from './SideMenu.vue';
 const drawer = ref(false);
 
 const menuItems = [
-  { id: 1, label: 'Meus palpites', url: '#' },
-  { id: 2, label: 'Ranking', url: '#' },
+  { id: 1, label: 'Meus palpites', url: '/' },
+  { id: 2, label: 'Ranking', url: '/ranking' },
   { id: 3, label: 'Resultados', url: '#' },
   { id: 4, label: 'Programa de provas', url: '#' },
-  // Add more menu items as needed
 ];
 </script>
 
