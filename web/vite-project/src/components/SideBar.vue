@@ -3,6 +3,8 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Bolão Olimpíadas De Paris 2024</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="logout" class="logout-btn" rounded>Logout</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app>
@@ -13,6 +15,8 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '../store/authStore.js'; // Adjust the path as needed
+import { useRouter } from 'vue-router'; // Add this line
 import SideMenu from './SideMenu.vue';
 
 const drawer = ref(false);
@@ -23,6 +27,14 @@ const menuItems = [
   { id: 3, label: 'Resultados', url: '#' },
   { id: 4, label: 'Programa de provas', url: '#' },
 ];
+
+const authStore = useAuthStore();
+const router = useRouter(); // Add this line
+
+const logout = () => {
+  authStore.setCurrentUser(null);
+  router.push('/login'); // Adjust the path as needed
+};
 </script>
 
 <style scoped>
@@ -33,5 +45,17 @@ const menuItems = [
 .v-app-bar {
   background-color: #1e8c19; /* Cor de fundo da barra de aplicativos */
   color: #ffffff; /* Cor do texto da barra de aplicativos */
+}
+
+.logout-btn {
+  background-color: #ff5722;
+  color: #ffffff;
+  border-radius: 50px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #e64a19;
 }
 </style>

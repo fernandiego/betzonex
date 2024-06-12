@@ -86,8 +86,6 @@ const testPontos = async () => {
     });
 
     if (points > 0) {
-      const authStore = useAuthStore();
-      const userStore = useUserStore();
       const currentUser = authStore.getCurrentUser;
 
       if (currentUser) {
@@ -102,8 +100,6 @@ const testPontos = async () => {
     console.error('Failed to fetch winners:', error);
   }
 };
-
-
 
 </script>
 
