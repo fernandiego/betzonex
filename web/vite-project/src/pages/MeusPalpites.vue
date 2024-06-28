@@ -54,13 +54,16 @@
 <script setup>
 import Accordion from "../components/Accordion.vue";
 import Athlete from "../components/Athlete.vue";
-import {useSelectionStore} from "../store/selectionStore.js";
+import { useSelectionStore } from "../store/selectionStore";
+import { useAuthStore } from "../store/authStore";
+import { useUserStore } from "../store/userStore";
 
-const storePinia = useSelectionStore();
-
+const selectionStore = useSelectionStore();
+const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const printAllSelectionsFinal = () => {
-  console.log('All selections:', storePinia.getSelections);
+  console.log('All selections:', selectionStore.getSelections);
 };
 
 const testPontos = async () => {
@@ -69,7 +72,7 @@ const testPontos = async () => {
     const winners = await response.json();
 
     let points = 0;
-    const selections = storePinia.getSelections;
+    const selections = selectionStore.getSelections;
 
     Object.keys(selections).forEach(event => {
       const eventWinners = winners[event];
@@ -80,16 +83,16 @@ const testPontos = async () => {
         return;
       }
 
-      if (userSelections[0] === eventWinners.gold) points += 10;
-      if (userSelections[1] === eventWinners.silver) points += 7;
-      if (userSelections[2] === eventWinners.bronze) points += 5;
+      if (userSelections[0] === eventWinners.gold) points += 9;
+      if (userSelections[1] === eventWinners.silver) points += 6;
+      if (userSelections[2] === eventWinners.bronze) points += 4;
     });
 
     if (points > 0) {
       const currentUser = authStore.getCurrentUser;
 
       if (currentUser) {
-        userStore.updateUserPoints(currentUser.name, points);
+        userStore.updateUserPoints(currentUser, points);
       } else {
         console.error('No user is currently logged in.');
       }
@@ -100,9 +103,7 @@ const testPontos = async () => {
     console.error('Failed to fetch winners:', error);
   }
 };
-
 </script>
 
 <style scoped>
-
 </style>

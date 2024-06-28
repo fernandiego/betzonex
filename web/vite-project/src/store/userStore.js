@@ -1,5 +1,6 @@
 // src/store/userStore.js
 import { defineStore } from 'pinia';
+import axios from '../axios';
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
@@ -7,26 +8,27 @@ export const useUserStore = defineStore('userStore', {
     users: [],
   }),
   actions: {
-    setCurrentUser(user) {
-      this.currentUser = user;
-    },
-    getCurrentUser() {
-      return this.currentUser;
-    },
     async loadUsers() {
       try {
-        const response = await fetch('/assets/users.json');
-        const data = await response.json();
-        this.users = data.users;
+        const response = await axios.get('/users');
+        this.users = response.data.users;
       } catch (error) {
         console.error('Failed to load users:', error);
       }
     },
-    updateUserPoints(userName, points) {
-      const user = this.users.find(user => user.name === userName);
-      if (user) {
-        user.points = points;
+    async updateUserPoints(userName, points) {
+      try {
+        const user = this.users.find(user => user.name === userName);
+        if (user) {
+          user.points = points;
+          await axios.put(`/users/${user.id}`, { points });
+        }
+      } catch (error) {
+        console.error('Failed to update user points:', error);
       }
+    },
+    getCurrentUser() {
+      return this.currentUser;
     },
   },
   getters: {

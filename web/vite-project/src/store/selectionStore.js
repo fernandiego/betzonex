@@ -1,11 +1,27 @@
-// src/stores/selectionStore.js
+// src/store/selectionStore.js
 import { defineStore } from 'pinia';
+import axios from '../axios';
 
 export const useSelectionStore = defineStore('selectionStore', {
   state: () => ({
-    selections: JSON.parse(localStorage.getItem('selections') || '{}'),
+    selections: {},
   }),
   actions: {
+    async saveSelections() {
+      try {
+        await axios.post('/predictions', { selections: this.selections });
+      } catch (error) {
+        console.error('Failed to save selections:', error);
+      }
+    },
+    async loadSelections() {
+      try {
+        const response = await axios.get('/predictions');
+        this.selections = response.data.selections;
+      } catch (error) {
+        console.error('Failed to load selections:', error);
+      }
+    },
     setSelection(event, athletes) {
       this.selections[event] = athletes;
       this.saveSelections();
@@ -13,15 +29,9 @@ export const useSelectionStore = defineStore('selectionStore', {
     updateSelection(payload) {
       this.setSelection(payload.event, payload.athletes);
     },
-    saveSelections() {
-      localStorage.setItem('selections', JSON.stringify(this.selections));
-    },
     deleteSelections(event) {
       delete this.selections[event];
       this.saveSelections();
-    },
-    loadSelections() {
-      this.selections = JSON.parse(localStorage.getItem('selections') || '{}');
     },
   },
   getters: {

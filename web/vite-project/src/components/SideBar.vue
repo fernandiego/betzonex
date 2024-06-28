@@ -1,22 +1,22 @@
 <template>
   <div>
-    <v-app-bar app>
+    <v-app-bar v-if="showMenu" app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Bolão Olimpíadas De Paris 2024</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="logout" class="logout-btn" rounded>Logout</v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-if="showMenu" v-model="drawer" app>
       <SideMenu :menuItems="menuItems" />
     </v-navigation-drawer>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router'; // Add useRoute
 import { useAuthStore } from '../store/authStore.js'; // Adjust the path as needed
-import { useRouter } from 'vue-router'; // Add this line
 import SideMenu from './SideMenu.vue';
 
 const drawer = ref(false);
@@ -29,7 +29,10 @@ const menuItems = [
 ];
 
 const authStore = useAuthStore();
-const router = useRouter(); // Add this line
+const router = useRouter();
+const route = useRoute();
+
+const showMenu = computed(() => route.name !== 'Login'); // Conditionally show menu
 
 const logout = () => {
   authStore.setCurrentUser(null);

@@ -3,53 +3,41 @@
     <v-card class="mx-auto my-12" max-width="400">
       <v-card-title>Login</v-card-title>
       <v-card-text>
-        <v-form ref="loginForm" @submit.prevent="login">
-          <v-text-field
-            v-model="username"
-            label="Username"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="password"
-            label="Password"
-            type="password"
-            required
-          ></v-text-field>
+        <v-form @submit.prevent="login">
+          <v-text-field v-model="cpf" label="CPF" required></v-text-field>
+          <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
           <v-btn type="submit" color="primary">Login</v-btn>
         </v-form>
+        <v-divider class="my-3"></v-divider>
+        <v-btn @click="goToRegister" color="secondary">Register</v-btn>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '../store/userStore.js';
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+import axios from '../axios';
+import {useAuthStore} from '../store/authStore';
 
-const username = ref('');
+const cpf = ref('');
 const password = ref('');
 const router = useRouter();
-const userStore = useUserStore();
-
-onMounted(() => {
-  userStore.loadUsers();
-});
+const authStore = useAuthStore();
 
 const login = async () => {
   try {
-    const user = userStore.getUsers.find(u => u.name === username.value && u.password === password.value);
-
-    if (user) {
-      userStore.setCurrentUser(user);
-      await router.push('/');
-    } else {
-      console.error('User not found');
-      alert('Invalid username or password');
-    }
+    await authStore.login(cpf.value, password.value);
+    router.push('/');
   } catch (error) {
-    console.error('Failed to fetch users:', error);
+    console.error('Error logging in:', error);
+    alert('Login failed. Please check your credentials.');
   }
+};
+
+const goToRegister = () => {
+  router.push('/register');
 };
 </script>
 
