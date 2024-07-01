@@ -32,7 +32,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 
-const showMenu = computed(() => route.name !== 'Login'); // Conditionally show menu
+const showMenu = computed(() => route.name !== 'Login' && route.name !== 'Register'); // Conditionally show menu
 
 const logout = () => {
   authStore.setCurrentUser(null);
